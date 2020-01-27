@@ -4,16 +4,15 @@ require 'json'
 require_relative 'test_job' # TODO: remove this dependency
 
 module Quiq
-  class JobWrapper
-
-    module Extensions
-      def self.included(base)
-        base.class_eval do
-          attr_accessor :task
-        end
+  module Extensions
+    def self.included(base)
+      base.class_eval do
+        attr_accessor :task
       end
     end
+  end
 
+  class JobWrapper
     def initialize(item)
       # TODO: handle deserialization errors
       @item = JSON.parse(item) rescue nil
