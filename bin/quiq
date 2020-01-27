@@ -1,0 +1,12 @@
+#!/usr/bin/env ruby
+
+require_relative '../lib/quiq'
+
+begin
+  server = Quiq.run
+  server.run
+rescue => e
+  warn e.message
+  warn e.backtrace.join("\n")
+  exit 1
+end
