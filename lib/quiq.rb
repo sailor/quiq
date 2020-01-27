@@ -16,8 +16,6 @@ module Quiq
   end
 
   def self.redis
-    configure if configuration.nil?
-
     @redis ||= begin
       endpoint = Async::Redis.local_endpoint
       Async::Redis::Client.new(endpoint)
@@ -25,6 +23,8 @@ module Quiq
   end
 
   def self.run
+    configure if configuration.nil?
+
     Server.instance.run
   end
 end
