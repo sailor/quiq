@@ -4,7 +4,6 @@ Gem::Specification.new do |spec|
   spec.name          = "quiq"
   spec.version       = Quiq::VERSION
   spec.authors       = ["Salim Semaoune"]
-  spec.email         = ["salim.semaoune@gmail.com"]
 
   spec.summary       = %q{amazing summary}
   spec.description   = %q{gorgeous description}
