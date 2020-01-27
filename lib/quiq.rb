@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'quiq/version'
 require_relative 'quiq/config'
 require_relative 'quiq/server'

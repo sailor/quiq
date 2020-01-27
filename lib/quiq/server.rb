@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'singleton'
 require 'async/redis'
 require_relative 'job_wrapper'
