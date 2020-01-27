@@ -11,12 +11,17 @@ module Quiq
     def run
       Async do
         loop do
-          data = Quiq.redis.brpop(Quiq.configuration.queue)
-          JobWrapper.new(data.last).run
+          job = fetch_one
+          JobWrapper.new(job).run
         end
       ensure
         Quiq.redis.close
       end
+    end
+
+    def fetch_one
+      # BRPOP returns a tuple made of the queue name then the args
+      Quiq.redis.brpop(Quiq.configuration.queue).last
     end
   end
 end
