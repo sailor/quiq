@@ -11,7 +11,7 @@ module Quiq
     def run
       Async do
         loop do
-          data = Quiq.redis.brpop(Quiq.config.queue)
+          data = Quiq.redis.brpop(Quiq.configuration.queue)
           JobWrapper.new(data.last).run
         end
       ensure

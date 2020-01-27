@@ -6,12 +6,18 @@ require_relative 'quiq/server'
 require 'async/redis'
 
 module Quiq
-  def self.config
-    @config ||= Config.new
+  class << self
+    attr_accessor :configuration
+  end
+
+  def self.configure
+    self.configuration ||= Config.new
+    yield(configuration) if block_given?
   end
 
   def self.redis
-    # TODO: make the redis connection configurable
+    configure if configuration.nil?
+
     @redis ||= begin
       endpoint = Async::Redis.local_endpoint
       Async::Redis::Client.new(endpoint)
