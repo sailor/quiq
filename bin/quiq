@@ -3,8 +3,7 @@
 require_relative '../lib/quiq'
 
 begin
-  server = Quiq.run
-  server.run
+  Quiq.run
 rescue => e
   warn e.message
   warn e.backtrace.join("\n")
