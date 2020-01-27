@@ -4,14 +4,6 @@ require 'json'
 require_relative 'test_job' # TODO: remove this dependency
 
 module Quiq
-  module Extensions
-    def self.included(base)
-      base.class_eval do
-        attr_accessor :task
-      end
-    end
-  end
-
   class JobWrapper
     def initialize(item)
       # TODO: handle deserialization errors
@@ -21,13 +13,10 @@ module Quiq
     def run
       return if @item.nil?
 
-      Async do |task|
+      Async do
         klass = Object.const_get(@item['wrapped'])
-        klass.include(Extensions)
         args = @item['args'].first['arguments']
-        job = klass.new
-        job.task = task
-        job.perform(*args)
+        klass.new.perform(*args)
       end
     end
   end
