@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'json'
-require_relative 'test_job' # TODO: remove this dependency
 
 module Quiq
   class JobWrapper

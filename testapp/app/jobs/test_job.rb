@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class TestJob
+class TestJob < ApplicationJob
   def perform(data, wait)
     puts "Receiving new data: #{data}"
     Quiq.current_task.sleep wait
