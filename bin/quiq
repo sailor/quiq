@@ -10,6 +10,11 @@ OptionParser.new do |opts|
   opts.on("-p", "--path [PATH|DIR]", "Location of the workers to require") do |path|
     options[:path] = path
   end
+
+  opts.on("-h", "--help", "Show this message") do
+    puts opts
+    exit
+  end
 end.parse!
 
 begin
