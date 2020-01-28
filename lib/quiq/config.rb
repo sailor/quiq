@@ -2,8 +2,6 @@
 
 module Quiq
   class Config
-    def queue
-      'queue:default'
-    end
+    DEFAULT_QUEUE_NAME = 'queue:default'
   end
 end

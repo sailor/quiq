@@ -21,7 +21,7 @@ module Quiq
 
     def fetch_one
       # BRPOP returns a tuple made of the queue name then the args
-      Quiq.redis.brpop(Quiq.configuration.queue).last
+      Quiq.redis.brpop(Quiq::Config::DEFAULT_QUEUE_NAME).last
     end
   end
 end
