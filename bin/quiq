@@ -1,8 +1,20 @@
 #!/usr/bin/env ruby
 
 require_relative '../lib/quiq'
+require 'optparse'
+
+options = {}
+OptionParser.new do |opts|
+  opts.banner = "Usage: quiq [options]"
+
+  opts.on("-p", "--path [PATH|DIR]", "Location of the workers to require") do |path|
+    options[:path] = path
+  end
+end.parse!
 
 begin
+  require options[:path]
+
   Quiq.run
 rescue => e
   warn e.message
