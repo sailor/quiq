@@ -11,7 +11,12 @@ OptionParser.new do |opts|
     options[:path] = path
   end
 
-  opts.on("-h", "--help", "Show this message") do
+  opts.on "-v", "--version", "Output version and exit" do |arg|
+    puts "Quiq #{Quiq::VERSION}"
+    exit
+  end
+
+  opts.on_tail("-h", "--help", "Show this message") do
     puts opts
     exit
   end
