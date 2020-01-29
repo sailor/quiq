@@ -3,6 +3,7 @@
 require_relative 'quiq/version'
 require_relative 'quiq/config'
 require_relative 'quiq/server'
+require_relative 'quiq/client'
 require 'async/redis'
 
 module Quiq
