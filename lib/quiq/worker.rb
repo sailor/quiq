@@ -3,7 +3,7 @@
 require 'json'
 
 module Quiq
-  class JobWrapper
+  class Worker
     def initialize(job)
       # TODO: handle deserialization errors
       @job = JSON.parse(job) rescue nil

@@ -2,7 +2,7 @@
 
 require 'singleton'
 require 'async/redis'
-require_relative 'job_wrapper'
+require_relative 'worker'
 
 module Quiq
   class Server
@@ -12,7 +12,7 @@ module Quiq
       Async do
         loop do
           job = fetch_one
-          JobWrapper.new(job).run
+          Worker.new(job).run
         end
       ensure
         Quiq.redis.close
