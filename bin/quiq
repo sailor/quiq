@@ -26,8 +26,8 @@ begin
   require options[:path]
 
   Quiq.run
-rescue => e
-  warn e.message
-  warn e.backtrace.join("\n")
+rescue
+  warn $!.message
+  warn $!.backtrace.join("\n")
   exit 1
 end
