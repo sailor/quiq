@@ -1,22 +1,23 @@
 #!/usr/bin/env ruby
+# frozen_string_literal: true
 
 require_relative '../lib/quiq'
 require 'optparse'
 
 options = {}
 OptionParser.new do |opts|
-  opts.banner = "Usage: quiq [options]"
+  opts.banner = 'Usage: quiq [options]'
 
-  opts.on("-p", "--path [PATH|DIR]", "Location of the workers to require") do |path|
+  opts.on('-p', '--path [PATH|DIR]", "Location of the workers to require') do |path|
     options[:path] = path
   end
 
-  opts.on "-v", "--version", "Output version and exit" do |arg|
+  opts.on '-v', '--version', 'Output version and exit' do |arg|
     puts "Quiq #{Quiq::VERSION}"
     exit
   end
 
-  opts.on_tail("-h", "--help", "Show this message") do
+  opts.on_tail('-h', '--help', 'Show this message') do
     puts opts
     exit
   end
