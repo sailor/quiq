@@ -16,10 +16,7 @@ module Quiq
   end
 
   def self.redis
-    @redis ||= begin
-      endpoint = Async::Redis.local_endpoint
-      Async::Redis::Client.new(endpoint)
-    end
+    configuration.redis
   end
 
   def self.run
