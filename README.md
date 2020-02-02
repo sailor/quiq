@@ -39,7 +39,7 @@ Bug reports and pull requests are welcome on GitHub at https://github.com/sailor
 - [ ] Graceful shutdown
 - [ ] Add a customizable logger
 - [ ] Implement a DLQ
-- [ ] Implement job scheduling in the future
+- [ ] Support job scheduled in the future
 
 ## License
 
