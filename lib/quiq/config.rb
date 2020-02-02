@@ -6,6 +6,8 @@ module Quiq
   class Config
     DEFAULT_QUEUE_NAME = 'queue:default'
 
+    attr_accessor :queues
+
     # Return a connection to the local
     # Redis instance if not configured
     def redis

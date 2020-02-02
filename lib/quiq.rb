@@ -22,6 +22,7 @@ module Quiq
 
   def self.run(options)
     configure if configuration.nil?
+    self.configuration.queues = options[:queues] || ['default']
 
     Server.instance.run
   end
