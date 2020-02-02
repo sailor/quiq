@@ -8,7 +8,7 @@ module Quiq
     def push(job)
       serialized = JSON.dump(job.serialize)
       Async do
-        Quiq.redis.lpush(Quiq::Config::DEFAULT_QUEUE_NAME, serialized)
+        Quiq.redis.lpush("queue:#{job.queue_name}", serialized)
       end
     end
 
