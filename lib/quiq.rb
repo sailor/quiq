@@ -12,7 +12,7 @@ module Quiq
   end
 
   def self.configure
-    self.configuration ||= Config.new
+    self.configuration ||= Config.instance
     yield(configuration) if block_given?
   end
 
@@ -23,6 +23,14 @@ module Quiq
   def self.run(options)
     configure if configuration.nil?
     self.configuration.queues = options[:queues] || ['default']
+
+    # Lookup for workers in the given path or the current directory
+    path = options[:path] || Dir.pwd
+    if File.directory?(path)
+      Dir.glob(File.join(path, '*.rb')).each { |file| require file }
+    else
+      require path
+    end
 
     Server.instance.run
   end

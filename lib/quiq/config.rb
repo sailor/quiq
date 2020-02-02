@@ -1,9 +1,12 @@
 # frozen_string_literal: true
 
+require 'singleton'
 require 'uri'
 
 module Quiq
   class Config
+    include Singleton
+
     DEFAULT_QUEUE_NAME = 'queue:default'
 
     attr_accessor :queues
