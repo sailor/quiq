@@ -35,6 +35,10 @@ module Quiq
     Server.instance.run
   end
 
+  def self.queues
+    configuration.queues
+  end
+
   def self.current_task
     Async::Task.current
   end

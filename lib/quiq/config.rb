@@ -7,8 +7,6 @@ module Quiq
   class Config
     include Singleton
 
-    DEFAULT_QUEUE_NAME = 'queue:default'
-
     attr_accessor :queues
 
     # Return a connection to the local
