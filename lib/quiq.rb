@@ -22,7 +22,7 @@ module Quiq
 
   def self.run(options)
     configure if configuration.nil?
-    self.configuration.queues = options[:queues] || ['default']
+    configuration.queues = options[:queues] || ['default']
 
     # Lookup for workers in the given path or the current directory
     path = options[:path] || Dir.pwd
