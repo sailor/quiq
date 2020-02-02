@@ -9,6 +9,7 @@ module Quiq
   class Server < Async::Container::Controller
     include Singleton
 
+    # Called by Server.instance.run
     def setup(container)
       @queues = Quiq.queues.map { |q| "queue:#{q}" }
 
