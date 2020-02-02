@@ -1,17 +1,18 @@
 # frozen_string_literal: true
 
 require 'singleton'
+require 'async/container'
 require 'async/redis'
 require_relative 'worker'
 
 module Quiq
-  class Server
+  class Server < Async::Container::Controller
     include Singleton
 
-    def run
+    def setup(container)
       @queues = Quiq.queues.map { |q| "queue:#{q}" }
 
-      Async do
+      container.async do
         loop do
           job = fetch_one
           Worker.new(job).run
