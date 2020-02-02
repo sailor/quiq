@@ -40,6 +40,7 @@ Bug reports and pull requests are welcome on GitHub at https://github.com/sailor
 - [ ] Add a customizable logger
 - [ ] Implement a DLQ
 - [ ] Support job scheduled in the future
+- [ ] Add specs
 
 ## License
 
