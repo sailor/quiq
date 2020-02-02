@@ -12,6 +12,10 @@ OptionParser.new do |opts|
     options[:path] = path
   end
 
+  opts.on('-q', '--queues [NAMES]", "Comma-separated list of queues to fetch jobs from') do |queues|
+    options[:queues] = queues.split(',')
+  end
+
   opts.on '-v', '--version', 'Output version and exit' do |arg|
     puts "Quiq #{Quiq::VERSION}"
     exit
@@ -32,7 +36,7 @@ begin
     require path
   end
 
-  Quiq.run
+  Quiq.run(options)
 rescue
   warn $!.message
   warn $!.backtrace.join("\n")

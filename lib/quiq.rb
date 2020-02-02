@@ -20,7 +20,7 @@ module Quiq
     configuration.redis
   end
 
-  def self.run
+  def self.run(options)
     configure if configuration.nil?
 
     Server.instance.run
