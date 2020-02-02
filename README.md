@@ -34,6 +34,12 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/sailor/quiq.
 
+## TODO
+
+- [ ] Graceful shutdown
+- [ ] Add a customizable logger
+- [ ] Implement a DLQ
+- [ ] Implement job scheduling in the future
 
 ## License
 
