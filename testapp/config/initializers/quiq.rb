@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Monkey patch activejob until there is an official integration
 module ActiveJob
   module QueueAdapters
     class QuiqAdapter
