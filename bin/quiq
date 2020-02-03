@@ -16,7 +16,7 @@ OptionParser.new do |opts|
     options[:queues] = queues.split(',')
   end
 
-  opts.on '-v', '--version', 'Output version and exit' do |arg|
+  opts.on '-v', '--version', 'Output version and exit' do
     puts "Quiq #{Quiq::VERSION}"
     exit
   end
