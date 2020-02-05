@@ -1,22 +1,27 @@
 # frozen_string_literal: true
 
-require 'json'
+require_relative 'processor'
 
 module Quiq
   class Worker
-    def initialize(job)
-      # TODO: handle deserialization errors
-      @job = JSON.parse(job) rescue nil
+    def initialize(queue)
+      @queue = queue
     end
 
-    def run
-      return if @job.nil?
-
+    def start
       Async do
-        klass = Object.const_get(@job['job_class'])
-        args = @job['arguments']
-        klass.new.perform(*args)
+        loop do
+          job = fetch_one
+          Processor.new(job).run
+        end
+      ensure
+        Quiq.redis.close
       end
+    end
+
+    def fetch_one
+      # BRPOP returns a tuple made of the queue name then the args
+      Quiq.redis.brpop(@queue).last
     end
   end
 end

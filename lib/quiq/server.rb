@@ -6,26 +6,20 @@ require 'async/redis'
 require_relative 'worker'
 
 module Quiq
-  class Server < Async::Container::Controller
+  class Server
     include Singleton
 
     # Called by Server.instance.run
-    def setup(container)
+    def run
       @queues = Quiq.queues.map { |q| "queue:#{q}" }
 
-      container.async do
-        loop do
-          job = fetch_one
-          Worker.new(job).run
-        end
-      ensure
-        Quiq.redis.close
+      # Launch one worker per queue
+      @queues.each do |queue|
+        fork { Worker.new(queue).start }
       end
-    end
 
-    def fetch_one
-      # BRPOP returns a tuple made of the queue name then the args
-      Quiq.redis.brpop(*@queues).last
+      # TODO: handle graceful shutdowns
+      Process.waitall
     end
   end
 end

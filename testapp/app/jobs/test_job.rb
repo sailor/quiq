@@ -2,8 +2,8 @@
 
 class TestJob < ApplicationJob
   def perform(data, wait)
-    puts "Receiving new data: #{data}"
+    puts "[Worker ##{$$}] Receiving new job: #{data}"
     Quiq.current_task.sleep wait
-    puts "Time to wake up after #{wait} seconds"
+    puts "[Worker ##{$$}] Time to wake up after #{wait} seconds"
   end
 end
