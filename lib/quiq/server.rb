@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'singleton'
-require 'async/container'
 require 'async/redis'
 require_relative 'worker'
 
