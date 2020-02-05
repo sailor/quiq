@@ -13,6 +13,7 @@ module Quiq
         loop do
           job = fetch_one
           Processor.new(job).run
+          Quiq.redis.lrem(@queue, 1, job)
         end
       ensure
         Quiq.redis.close
@@ -20,8 +21,10 @@ module Quiq
     end
 
     def fetch_one
-      # BRPOP returns a tuple made of the queue name then the args
-      Quiq.redis.brpop(@queue).last
+      # BRPOPLPUSH pops a job from the working queue
+      # then put it in a processing queue to ensure
+      # an "at least once" behaviour
+      Quiq.redis.brpoplpush(@queue, "#{@queue}:processing", 0).last
     end
   end
 end
