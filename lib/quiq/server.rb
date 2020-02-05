@@ -9,7 +9,6 @@ module Quiq
   class Server
     include Singleton
 
-    # Called by Server.instance.run
     def run
       @queues = Quiq.queues.map { |q| "queue:#{q}" }
 
