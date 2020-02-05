@@ -2,7 +2,6 @@ PATH
   remote: ..
   specs:
     quiq (0.1.0)
-      async-container (~> 0.16)
       async-redis (~> 0.4)
 
 GEM
@@ -67,10 +66,6 @@ GEM
       console (~> 1.0)
       nio4r (~> 2.3)
       timers (~> 4.1)
-    async-container (0.16.1)
-      async (~> 1.0)
-      async-io (~> 1.26)
-      process-group
     async-io (1.27.3)
       async (~> 1.14)
     async-redis (0.4.1)
@@ -109,10 +104,6 @@ GEM
     nio4r (2.5.2)
     nokogiri (1.10.7)
       mini_portile2 (~> 2.4.0)
-    process-group (1.2.1)
-      process-terminal (~> 0.2.0)
-    process-terminal (0.2.0)
-      ffi
     protocol-redis (0.2.0)
     rack (2.1.1)
     rack-test (1.1.0)
