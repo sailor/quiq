@@ -7,6 +7,8 @@ require_relative 'quiq/client'
 require 'async/redis'
 
 module Quiq
+  DEFAULT_QUEUE_NAME = 'default'
+
   class << self
     attr_accessor :configuration
   end
@@ -22,7 +24,7 @@ module Quiq
 
   def self.run(options)
     configure if configuration.nil?
-    configuration.queues = options[:queues] || ['default']
+    configuration.queues = options[:queues] || [DEFAULT_QUEUE_NAME]
 
     # Lookup for workers in the given path or the current directory
     path = options[:path] || Dir.pwd
