@@ -9,11 +9,9 @@ module Quiq
     include Singleton
 
     def run
-      @queues = Quiq.queues.map { |q| "queue:#{q}" }
-
       # Launch one worker per queue
-      @queues.each do |queue|
-        fork { Worker.new(queue).start }
+      Quiq.queues.each do |q|
+        fork { Worker.new("queue:#{q}").start }
       end
 
       # TODO: handle graceful shutdowns
