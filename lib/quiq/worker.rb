@@ -12,7 +12,7 @@ module Quiq
     def start
       # Purge the processing queue by re-enqueing
       # messages that weren't fully processed
-      # beware that your jobs must be idempotent!
+      # beware that the jobs must be idempotent!
       purge_processing_queue!
 
       # Then start processing enqueued jobs
