@@ -33,7 +33,7 @@ module Quiq
       # BRPOPLPUSH pops a job from the working queue
       # then put it in a processing queue to ensure
       # an "at least once" behaviour
-      Quiq.redis.brpoplpush(@queue, @processing_queue, 0).last
+      Quiq.redis.brpoplpush(@queue, @processing_queue, 0)
     end
 
     # Insert elements that weren't fully processed
