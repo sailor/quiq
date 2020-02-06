@@ -6,7 +6,11 @@ module Quiq
   class Processor
     def initialize(job)
       # TODO: handle deserialization errors
-      @job = JSON.parse(job) rescue nil
+      begin
+        @job = JSON.parse(job)
+      rescue
+        puts "Can't read job: #{job}\n#{$!}"
+      end
     end
 
     def run
