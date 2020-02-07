@@ -20,7 +20,7 @@ module Quiq
         loop do
           job = fetch_one
           Processor.new(job).run
-          Quiq.redis.lrem(@queue, 1, job)
+          Quiq.redis.lrem(@processing_queue, 0, job)
         end
       ensure
         Quiq.redis.close
