@@ -37,7 +37,7 @@ Bug reports and pull requests are welcome on GitHub at https://github.com/sailor
 ## TODO
 
 - [ ] Graceful shutdown
-- [ ] Add a customizable logger
+- [x] Add a customizable logger
 - [ ] Implement a DLQ
 - [ ] Support job scheduled in the future
 - [ ] Add specs
