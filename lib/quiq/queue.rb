@@ -5,7 +5,7 @@ module Quiq
     attr_reader :processing
 
     def initialize(name)
-      @name = name
+      @name = "queue:#{name}"
       @processing = "#{@name}:processing"
     end
 

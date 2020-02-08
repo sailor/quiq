@@ -10,8 +10,8 @@ module Quiq
 
     def run
       # Launch one worker per queue
-      Quiq.queues.each do |q|
-        fork { Worker.new("queue:#{q}").start }
+      Quiq.queues.each do |queue|
+        fork { Worker.new(queue).start }
       end
 
       # TODO: handle graceful shutdowns
