@@ -8,7 +8,7 @@ module Quiq
   class Server
     include Singleton
 
-    def run
+    def run!
       # Launch one worker per queue
       Quiq.queues.each do |queue|
         fork { Worker.new(queue).start }

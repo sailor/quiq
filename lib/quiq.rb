@@ -34,7 +34,7 @@ module Quiq
       require path
     end
 
-    Server.instance.run
+    Server.instance.run!
   end
 
   def self.queues
