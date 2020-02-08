@@ -9,7 +9,7 @@ module Quiq
       @processing = "#{@name}:processing"
     end
 
-    def fetch_one
+    def pop
       Quiq.redis.brpoplpush(@name, @processing, 0)
     end
 

@@ -17,7 +17,7 @@ module Quiq
       # Then start processing enqueued jobs
       Async do
         loop do
-          job = @queue.fetch_one
+          job = @queue.pop
           Processor.new(job).run
           Quiq.redis.lrem(@queue.processing, 0, job)
         end
