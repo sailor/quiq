@@ -2,11 +2,14 @@
 
 module Quiq
   class Queue
+    PREFIX = 'queue'
+    PROCESSING_SUFFIX = 'processing'
+
     attr_reader :processing
 
     def initialize(name)
-      @name = "queue:#{name}"
-      @processing = "#{@name}:processing"
+      @name = self.class.queue_name(name)
+      @processing = self.class.processing_name(name)
     end
 
     def pop
@@ -27,6 +30,18 @@ module Quiq
       end
 
       task.wait
+    end
+
+    def self.delete(queue, job)
+      Quiq.redis.lrem(queue, 0, job)
+    end
+
+    def self.queue_name(name)
+      [PREFIX, name].join(':')
+    end
+
+    def self.processing_name(name)
+      [PREFIX, name, PROCESSING_SUFFIX].join(':')
     end
   end
 end

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative 'processor'
+require_relative 'job'
 require_relative 'queue'
 
 module Quiq
@@ -16,11 +16,7 @@ module Quiq
 
       # Then start processing enqueued jobs
       Async do
-        loop do
-          job = @queue.pop
-          Processor.new(job).run
-          Quiq.redis.lrem(@queue.processing, 0, job)
-        end
+        loop { Job.new(@queue.pop).run }
       ensure
         Quiq.redis.close
       end
