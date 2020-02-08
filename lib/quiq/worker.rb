@@ -1,57 +1,29 @@
 # frozen_string_literal: true
 
 require_relative 'processor'
+require_relative 'queue'
 
 module Quiq
   class Worker
     def initialize(queue)
-      @queue = queue
-      @processing_queue = "#{@queue}:processing"
+      @queue = Queue.new(queue)
     end
 
     def start
-      # Purge the processing queue by re-enqueing
-      # messages that weren't fully processed
-      # beware that the jobs must be idempotent!
-      purge_processing_queue!
+      # Purge the processing queue by re-enqueing messages that weren't fully processed
+      # Beware that the jobs must be idempotent!
+      @queue.purge_processing!
 
       # Then start processing enqueued jobs
       Async do
         loop do
-          job = fetch_one
+          job = @queue.fetch_one
           Processor.new(job).run
-          Quiq.redis.lrem(@processing_queue, 0, job)
+          Quiq.redis.lrem(@queue.processing, 0, job)
         end
       ensure
         Quiq.redis.close
       end
-    end
-
-    private
-
-    def fetch_one
-      # BRPOPLPUSH pops a job from the working queue
-      # then put it in a processing queue to ensure
-      # an "at least once" behaviour
-      Quiq.redis.brpoplpush(@queue, @processing_queue, 0)
-    end
-
-    # Insert elements that weren't fully processed
-    # at the tail of the queue to avoid loss
-    # Note that they should be enqueued at the head
-    # of the queue, but Redis lacks a LPOPRPUSH command
-    def purge_processing_queue!
-      task = Async do
-        Quiq.redis.pipeline do |pipe|
-          loop do
-            job = pipe.sync.call('RPOPLPUSH', @processing_queue, @queue)
-            break if job.nil?
-          end
-          pipe.close
-        end
-      end
-
-      task.wait
     end
   end
 end
