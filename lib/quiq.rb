@@ -44,4 +44,8 @@ module Quiq
   def self.current_task
     Async::Task.current
   end
+
+  def self.logger
+    configuration.logger
+  end
 end

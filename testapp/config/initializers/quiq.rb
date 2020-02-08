@@ -25,4 +25,5 @@ end
 
 Quiq.configure do |config|
   config.redis = 'redis://localhost:6379'
+  # config.logger = Rails.logger
 end

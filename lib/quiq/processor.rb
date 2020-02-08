@@ -9,7 +9,7 @@ module Quiq
       begin
         @job = JSON.parse(job)
       rescue
-        puts "Can't read job: #{job}\n#{$!}"
+        Quiq.logger.error "Can't read job: #{job}\n#{$!}"
       end
     end
 

@@ -8,6 +8,7 @@ module Quiq
     include Singleton
 
     attr_accessor :queues
+    attr_writer :logger
 
     # Return a connection to the local
     # Redis instance if not configured
@@ -24,6 +25,10 @@ module Quiq
       uri = URI(server)
       endpoint = Async::IO::Endpoint.tcp(uri.host, uri.port)
       @redis = Async::Redis::Client.new(endpoint)
+    end
+
+    def logger
+      @logger ||= Logger.new(STDOUT)
     end
   end
 end
