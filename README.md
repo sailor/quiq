@@ -41,6 +41,7 @@ Bug reports and pull requests are welcome on GitHub at https://github.com/sailor
 - [ ] Implement a DLQ
 - [ ] Support job scheduled in the future
 - [ ] Add specs
+- [ ] Add retry mechanism
 
 ## License
 
