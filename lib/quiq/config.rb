@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'singleton'
-require 'uri'
+require_relative 'redis'
 
 module Quiq
   class Config
@@ -10,21 +10,12 @@ module Quiq
     attr_accessor :queues
     attr_writer :logger
 
-    # Return a connection to the local
-    # Redis instance if not configured
-    def redis
-      @redis ||= begin
-        endpoint = Async::Redis.local_endpoint
-        Async::Redis::Client.new(endpoint)
-      end
+    def redis=(server)
+      @redis = Redis.new(server)
     end
 
-    # Only accepts a redis connection uri for now
-    # Note the client used is far from being production ready
-    def redis=(server)
-      uri = URI(server)
-      endpoint = Async::IO::Endpoint.tcp(uri.host, uri.port)
-      @redis = Async::Redis::Client.new(endpoint)
+    def redis
+      @redis ||= Redis.new
     end
 
     def logger
