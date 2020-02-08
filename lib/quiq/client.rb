@@ -7,8 +7,10 @@ module Quiq
   class Client
     def push(job)
       serialized = JSON.dump(job.serialize)
+      queue = Queue.new(job.queue_name)
+
       Async do
-        Quiq.redis.lpush("queue:#{job.queue_name}", serialized)
+        queue.push(serialized)
       end
     end
 

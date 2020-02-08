@@ -12,6 +12,10 @@ module Quiq
       @processing = self.class.processing_name(name)
     end
 
+    def push(job)
+      Quiq.redis.lpush(@name, job)
+    end
+
     def pop
       Quiq.redis.brpoplpush(@name, @processing, 0)
     end
