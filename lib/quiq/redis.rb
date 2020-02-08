@@ -11,7 +11,7 @@ module Quiq
 
     extend Forwardable
 
-    def_delegators :@client, :brpoplpush, :lpush, :lrem, :pipeline
+    def_delegators :@client, :brpoplpush, :close, :lpush, :lrem, :pipeline
 
     def initialize(server = DEFAULT_REDIS_URL)
       uri = URI(server)
