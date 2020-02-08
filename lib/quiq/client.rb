@@ -9,9 +9,7 @@ module Quiq
       serialized = JSON.dump(job.serialize)
       queue = Queue.new(job.queue_name)
 
-      Async do
-        queue.push(serialized)
-      end
+      Async { queue.push(serialized) }
     end
 
     def self.push(job)
