@@ -9,7 +9,7 @@ module ActiveJob
       end
 
       def enqueue_at(job, timestamp)
-        raise NotImplementedError, 'Support for schedule jobs is coming soon.'
+        raise NotImplementedError, 'Support for scheduled jobs is coming soon.'
       end
 
       class JobWrapper
