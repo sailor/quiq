@@ -21,7 +21,7 @@ module Quiq
         # Then run the task asynchronously
         Async { klass.new.perform(*args) }
       rescue JSON::ParserError
-        Quiq.logger.error("Invalid format: #{@raw}")
+        Quiq.logger.error("Invalid format: #{$!}")
       rescue Exception => e
         # TODO: send the dead job in a DLQ
       ensure
