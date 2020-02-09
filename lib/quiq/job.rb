@@ -9,24 +9,26 @@ module Quiq
     end
 
     def run
-      begin
-        # First parse the raw data from redis
-        datas = JSON.parse(@raw)
+      Async do
+        begin
+          # First parse the raw data from redis
+          datas = JSON.parse(@raw)
 
-        # Then load the definition of the job + its arguments
-        klass = Object.const_get(datas['job_class'])
-        args = datas['arguments']
-        queue = datas['queue_name']
+          # Then load the definition of the job + its arguments
+          klass = Object.const_get(datas['job_class'])
+          args = datas['arguments']
+          queue = datas['queue_name']
 
-        # Then run the task asynchronously
-        Async { klass.new.perform(*args) }
-      rescue JSON::ParserError
-        Quiq.logger.error("Invalid format: #{$!}")
-      rescue Exception => e
-        # TODO: send the dead job in a DLQ
-      ensure
-        # Remove the job from the processing list
-        Queue.delete(Queue.processing_name(queue), @raw)
+          # Then run the task asynchronously
+          klass.new.perform(*args)
+        rescue JSON::ParserError
+          Quiq.logger.error("Invalid format: #{$!}")
+        rescue Exception => e
+          # TODO: send the dead job in a DLQ
+        ensure
+          # Remove the job from the processing list
+          Queue.delete(Queue.processing_name(queue), @raw)
+        end
       end
     end
   end
