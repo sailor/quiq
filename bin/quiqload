@@ -1,0 +1,47 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require_relative '../lib/quiq'
+require_relative '../testapp/config/environment.rb'
+require 'optparse'
+
+options = {}
+OptionParser.new do |opts|
+  opts.banner = 'Usage: quiqload [options]'
+
+  opts.on('-n', '--number [JOBS]', 'Number of jobs to enqueue') do |number|
+    options[:number] = number.to_i
+  end
+
+  opts.on('-w', '--wait [DURATION]', 'Idle time within each job') do |wait|
+    options[:wait] = wait.to_i
+  end
+
+  opts.on_tail('-h', '--help', 'Show this message') do
+    puts opts
+    exit
+  end
+end.parse!
+
+
+count = options[:number] ||= 10_000
+wait = options[:wait] ||= 1
+
+Quiq.logger.info("Enqueuing #{count} jobs")
+count.times { |i| TestJob.perform_later(i, wait) }
+
+Thread.new do
+  while true
+    qsize = Async do
+      queue = Quiq::Queue.processing_name('default')
+      Quiq.redis.client.llen queue
+    end.wait
+
+    if qsize == 0
+      Quiq.logger.info("Done processing #{count} jobs")
+      break
+    end
+
+    sleep 0.1
+  end
+end.join
