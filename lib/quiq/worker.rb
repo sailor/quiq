@@ -10,7 +10,7 @@ module Quiq
     end
 
     def start
-      # Purge the processing queue by re-enqueing messages that weren't fully processed
+      # Re-enqueue messages that weren't fully processed because the worker got killed
       # Beware that the jobs must be idempotent!
       @queue.purge_processing!
 
