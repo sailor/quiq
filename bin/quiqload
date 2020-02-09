@@ -1,6 +1,8 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
+# Usage: time RUBYOPT="-W0" bin/quiqload
+
 require_relative '../lib/quiq'
 require_relative '../testapp/config/environment.rb'
 require 'optparse'
