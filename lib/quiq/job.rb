@@ -12,12 +12,12 @@ module Quiq
       Async do
         begin
           # First parse the raw data from redis
-          datas = JSON.parse(@raw)
+          message = JSON.parse(@raw)
 
           # Then load the definition of the job + its arguments
-          klass = Object.const_get(datas['job_class'])
-          args = datas['arguments']
-          queue = datas['queue_name']
+          klass = Object.const_get(message['job_class'])
+          args = message['arguments']
+          queue = message['queue_name']
 
           # Then run the task asynchronously
           klass.new.perform(*args)
