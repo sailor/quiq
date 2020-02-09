@@ -36,7 +36,7 @@ Thread.new do
   while true
     queue_size = Async do
       queue = Quiq::Queue.processing_name('default')
-      Quiq.redis.client.llen queue
+      Quiq.redis.llen queue
     end.wait
 
     if queue_size == 0

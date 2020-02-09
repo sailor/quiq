@@ -19,7 +19,7 @@ module Quiq
   end
 
   def self.redis
-    configuration.redis
+    configuration.redis.client
   end
 
   def self.run(options)
