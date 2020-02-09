@@ -7,22 +7,22 @@ require_relative 'quiq/client'
 require 'async/redis'
 
 module Quiq
+  extend self
+
   DEFAULT_QUEUE_NAME = 'default'
 
-  class << self
-    attr_accessor :configuration
-  end
+  attr_accessor :configuration
 
-  def self.configure
+  def configure
     self.configuration ||= Config.instance
     yield(configuration) if block_given?
   end
 
-  def self.redis
+  def redis
     configuration.redis.client
   end
 
-  def self.boot(options)
+  def boot(options)
     configure if configuration.nil?
     configuration.queues = options[:queues] || [DEFAULT_QUEUE_NAME]
 
@@ -37,15 +37,15 @@ module Quiq
     Server.instance.run!
   end
 
-  def self.queues
+  def queues
     configuration.queues
   end
 
-  def self.current_task
+  def current_task
     Async::Task.current
   end
 
-  def self.logger
+  def logger
     configuration.logger
   end
 end
