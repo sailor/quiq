@@ -43,7 +43,7 @@ Bug reports and pull requests are welcome on GitHub at https://github.com/sailor
 - [ ] Add specs
 - [ ] Add retry mechanism
 - [ ] Add batches support
-- [ ] Create a load testing script
+- [x] Create a load testing script
 - [ ] Develop an admin UI
 
 ## License
