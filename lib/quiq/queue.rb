@@ -23,7 +23,7 @@ module Quiq
     # Insert elements that weren't fully processed at the tail of the queue to avoid loss
     # @note that they should be enqueued at the head of the queue, but Redis lacks a LPOPRPUSH command
     def purge_processing!
-      task = Async do
+      Async do
         Quiq.redis.pipeline do |pipe|
           loop do
             job = pipe.sync.call('RPOPLPUSH', @processing, @name)
@@ -33,8 +33,6 @@ module Quiq
           pipe.close
         end
       end
-
-      task.wait
     end
 
     def self.delete(queue, job)
