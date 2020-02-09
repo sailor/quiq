@@ -8,7 +8,7 @@ module Quiq
     attr_reader :processing
 
     def initialize(name)
-      @name = self.class.queue_name(name)
+      @name = self.class.formatted_name(name)
       @processing = self.class.processing_name(name)
     end
 
@@ -41,7 +41,7 @@ module Quiq
       Quiq.redis.lrem(queue, 0, job)
     end
 
-    def self.queue_name(name)
+    def self.formatted_name(name)
       "#{PREFIX}:#{name}"
     end
 
