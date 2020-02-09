@@ -28,7 +28,7 @@ OptionParser.new do |opts|
 end.parse!
 
 begin
-  Quiq.run(options)
+  Quiq.boot(options)
 rescue
   warn $!.message
   warn $!.backtrace.join("\n")

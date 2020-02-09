@@ -22,7 +22,7 @@ module Quiq
     configuration.redis.client
   end
 
-  def self.run(options)
+  def self.boot(options)
     configure if configuration.nil?
     configuration.queues = options[:queues] || [DEFAULT_QUEUE_NAME]
 
