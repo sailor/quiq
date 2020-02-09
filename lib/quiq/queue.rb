@@ -26,7 +26,8 @@ module Quiq
       task = Async do
         Quiq.redis.pipeline do |pipe|
           loop do
-            job = pipe.sync.call('RPOPLPUSH', @processing, @queue)
+            job = pipe.sync.call('RPOPLPUSH', @processing, @name)
+            Quiq.logger.warn("Requeuing job #{job} in #{@name}") unless job.nil?
             break if job.nil?
           end
           pipe.close
