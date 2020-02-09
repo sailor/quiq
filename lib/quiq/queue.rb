@@ -41,11 +41,11 @@ module Quiq
     end
 
     def self.queue_name(name)
-      [PREFIX, name].join(':')
+      "#{PREFIX}:#{name}"
     end
 
     def self.processing_name(name)
-      [PREFIX, name, PROCESSING_SUFFIX].join(':')
+      "#{PREFIX}:#{name}:#{PROCESSING_SUFFIX}"
     end
   end
 end
