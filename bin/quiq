@@ -8,11 +8,11 @@ options = {}
 OptionParser.new do |opts|
   opts.banner = 'Usage: quiq [options]'
 
-  opts.on('-p', '--path [PATH|DIR]", "Location of the workers to require') do |path|
+  opts.on('-p', '--path [PATH|DIR]', 'Location of the workers to require') do |path|
     options[:path] = path
   end
 
-  opts.on('-q', '--queues [NAMES]", "Comma-separated list of queues to fetch jobs from') do |queues|
+  opts.on('-q', '--queues [NAMES]', 'Comma-separated list of queues to fetch jobs from') do |queues|
     options[:queues] = queues.split(',')
   end
 
