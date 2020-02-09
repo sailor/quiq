@@ -22,6 +22,6 @@ Gem::Specification.new do |spec|
   spec.executables   = ['quiq']
   spec.require_paths = ['lib']
 
-  spec.add_dependency 'async-redis', '~> 0.4'
+  spec.add_dependency 'async-redis', '~> 0.4.2'
   spec.add_development_dependency 'rspec', '~> 3.2'
 end
