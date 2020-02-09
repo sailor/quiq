@@ -32,12 +32,12 @@ count.times { |i| TestJob.perform_later(i, wait) }
 
 Thread.new do
   while true
-    qsize = Async do
+    queue_size = Async do
       queue = Quiq::Queue.processing_name('default')
       Quiq.redis.client.llen queue
     end.wait
 
-    if qsize == 0
+    if queue_size == 0
       Quiq.logger.info("Done processing #{count} jobs")
       break
     end
