@@ -8,7 +8,7 @@ module Quiq
   class Config
     include Singleton
 
-    attr_reader :queues
+    attr_reader :queues, :path
     attr_writer :logger
 
     def redis=(server)
@@ -26,7 +26,8 @@ module Quiq
       end
     end
 
-    def parse_options(queues:, log_level:)
+    def parse_options(path:, queues:, log_level:)
+      @path = path
       @queues = queues
       @log_level = log_level
     end

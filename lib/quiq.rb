@@ -22,10 +22,10 @@ module Quiq
   end
 
   def boot(options)
-    configuration.parse_options(**options.slice(:queues, :log_level))
+    configuration.parse_options(**options)
 
-    # Lookup for workers in the given path or the current directory
-    path = options[:path] || Dir.pwd
+    # Load the workers source code
+    path = configuration.path
     if File.directory?(path)
       Dir.glob(File.join(path, '*.rb')).each { |file| require file }
     else
