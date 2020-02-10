@@ -16,7 +16,7 @@ module Quiq
 
       # Then start processing enqueued jobs
       Async do
-        loop { Job.new(@queue.pop).run }
+        loop { Job.new(@queue.pop, @queue).run }
       ensure
         Quiq.redis.close
       end

@@ -4,8 +4,9 @@ require 'json'
 
 module Quiq
   class Job
-    def initialize(raw)
+    def initialize(raw, queue)
       @raw = raw
+      @queue = queue
     end
 
     def run
@@ -29,7 +30,7 @@ module Quiq
           send_to_dlq(payload, exception)
         ensure
           # Remove the job from the processing list
-          Queue.delete(Queue.processing_name(queue), @raw)
+          Queue.delete(@queue.processing, @raw)
         end
       end
     end
