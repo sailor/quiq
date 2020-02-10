@@ -37,14 +37,14 @@ Bug reports and pull requests are welcome on GitHub at https://github.com/sailor
 ## Todo
 
 - [ ] Graceful shutdown
-- [x] Add a customizable logger
-- [x] Implement a DLQ
-- [ ] Support job scheduled in the future
-- [ ] Add specs
-- [ ] Add retry mechanism
-- [ ] Add batches support
-- [x] Create a load testing script
-- [ ] Develop an admin UI
+- [x] Customizable logger
+- [x] Dead-letter queue
+- [ ] Scheduler
+- [ ] Specs
+- [ ] Retry system
+- [ ] Batches support
+- [x] Load testing script
+- [ ] Admin user interface
 
 ## License
 
