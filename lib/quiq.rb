@@ -24,7 +24,7 @@ module Quiq
   end
 
   def boot(options)
-    configure if configuration.nil?
+    # List of queues to pop jobs from
     configuration.queues = options[:queues] || [DEFAULT_QUEUE_NAME]
 
     # Lookup for workers in the given path or the current directory
