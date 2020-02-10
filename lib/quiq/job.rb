@@ -18,7 +18,6 @@ module Quiq
           # Then load the definition of the job + its arguments
           klass = Object.const_get(payload['job_class'])
           args = payload['arguments']
-          queue = payload['queue_name']
 
           # Then run the task asynchronously
           klass.new.perform(*args)
