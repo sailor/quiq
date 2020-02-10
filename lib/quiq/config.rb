@@ -8,7 +8,7 @@ module Quiq
   class Config
     include Singleton
 
-    attr_accessor :queues
+    attr_reader :queues
     attr_writer :logger
 
     def redis=(server)
@@ -20,7 +20,15 @@ module Quiq
     end
 
     def logger
-      @logger ||= ::Logger.new(STDOUT)
+      @logger ||= begin
+        level = @log_level || Logger::DEBUG
+        ::Logger.new(STDOUT, level: level)
+      end
+    end
+
+    def parse_options(queues:, log_level:)
+      @queues = queues
+      @log_level = log_level
     end
   end
 end

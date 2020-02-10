@@ -4,7 +4,7 @@
 require_relative '../lib/quiq'
 require 'optparse'
 
-options = {}
+options = { queues: %w(default), log_level: Logger::DEBUG }
 OptionParser.new do |opts|
   opts.banner = 'Usage: quiq [options]'
 
@@ -14,6 +14,10 @@ OptionParser.new do |opts|
 
   opts.on('-q', '--queues [NAMES]', 'Comma-separated list of queues to fetch jobs from') do |queues|
     options[:queues] = queues.split(',')
+  end
+
+  opts.on('-l', '--log-level [LEVEL]', %i(debug info warn error), 'The logging level') do |level|
+    options[:log_level] = level
   end
 
   opts.on '-v', '--version', 'Output version and exit' do

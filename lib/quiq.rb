@@ -9,8 +9,6 @@ require 'async/redis'
 module Quiq
   extend self
 
-  DEFAULT_QUEUE_NAME = 'default'
-
   def configuration
     Config.instance
   end
@@ -24,8 +22,7 @@ module Quiq
   end
 
   def boot(options)
-    # List of queues to pop jobs from
-    configuration.queues = options[:queues] || [DEFAULT_QUEUE_NAME]
+    configuration.parse_options(**options.slice(:queues, :log_level))
 
     # Lookup for workers in the given path or the current directory
     path = options[:path] || Dir.pwd
