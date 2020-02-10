@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'logger'
 require 'singleton'
 require_relative 'redis'
 
@@ -19,7 +20,7 @@ module Quiq
     end
 
     def logger
-      @logger ||= Logger.new(STDOUT)
+      @logger ||= ::Logger.new(STDOUT)
     end
   end
 end

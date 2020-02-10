@@ -11,10 +11,11 @@ module Quiq
 
   DEFAULT_QUEUE_NAME = 'default'
 
-  attr_accessor :configuration
+  def configuration
+    @configuration ||= Config.instance
+  end
 
   def configure
-    self.configuration ||= Config.instance
     yield(configuration) if block_given?
   end
 
