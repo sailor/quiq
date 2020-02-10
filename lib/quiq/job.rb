@@ -12,14 +12,14 @@ module Quiq
     def run
       Async do
         begin
-          # First parse the raw data from redis
+          # First parse the raw message from redis
           payload = JSON.parse(@raw)
 
           # Then load the definition of the job + its arguments
           klass = Object.const_get(payload['job_class'])
           args = payload['arguments']
 
-          # Then run the task asynchronously
+          # Then run the task
           klass.new.perform(*args)
         rescue JSON::ParserError => exception
           Quiq.logger.warn("Invalid format: #{exception.to_s}")
