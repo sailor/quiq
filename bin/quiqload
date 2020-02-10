@@ -15,7 +15,8 @@ OptionParser.new do |opts|
     options[:number] = number.to_i
   end
 
-  opts.on('-w', '--wait DURATION', Integer, 'Idle time within each job (in seconds)') do |wait|
+  opts.on('-w', '--wait DURATION', Integer,
+          'Idle time within each job (in seconds)') do |wait|
     options[:wait] = wait.to_i
   end
 
@@ -29,13 +30,13 @@ Quiq.logger.info("Enqueuing #{options[:number]} jobs")
 options[:number].times { |i| TestJob.perform_later(i, options[:wait]) }
 
 Thread.new do
-  while true
+  loop do
     queue_size = Async do
       queue = Quiq::Queue.processing_name('default')
       Quiq.redis.llen queue
     end.wait
 
-    if queue_size == 0
+    if queue_size.zero?
       Quiq.logger.info("Done processing #{options[:number]} jobs")
       break
     end
