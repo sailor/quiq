@@ -4,6 +4,7 @@ module Quiq
   class Queue
     PREFIX = 'queue'
     PROCESSING_SUFFIX = 'processing'
+    DEAD_LETTER_QUEUE = 'dead'
 
     attr_reader :processing
 
@@ -47,6 +48,11 @@ module Quiq
 
     def self.processing_name(name)
       "#{PREFIX}:#{name}:#{PROCESSING_SUFFIX}"
+    end
+
+    def self.send_to_dlq(job)
+      @dlq ||= Queue.new(DEAD_LETTER_QUEUE)
+      @dlq.push(job)
     end
   end
 end
