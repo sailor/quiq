@@ -4,7 +4,7 @@
 require_relative '../lib/quiq'
 require 'optparse'
 
-options = { path: Dir.pwd, queues: %w(default), log_level: Logger::DEBUG }
+options = { path: Dir.pwd, queues: %w[default], log_level: Logger::DEBUG }
 OptionParser.new do |opts|
   opts.banner = 'Usage: quiq [options]'
 
@@ -12,11 +12,13 @@ OptionParser.new do |opts|
     options[:path] = path
   end
 
-  opts.on('-q', '--queues NAMES', Array, 'Comma-separated list of queues to poll') do |queues|
+  opts.on('-q', '--queues NAMES', Array,
+          'Comma-separated list of queues to poll') do |queues|
     options[:queues] = queues
   end
 
-  opts.on('-l', '--log-level LEVEL', %i(debug info warn error), 'The logging level') do |level|
+  opts.on('-l', '--log-level LEVEL', %i[debug info warn error],
+          'The logging level') do |level|
     options[:log_level] = level
   end
 
@@ -33,8 +35,8 @@ end.parse!
 
 begin
   Quiq.boot(options)
-rescue
-  warn $!.message
-  warn $!.backtrace.join("\n")
+rescue StandardError => e
+  warn e.message
+  warn e.backtrace.join("\n")
   exit 1
 end
