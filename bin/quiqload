@@ -7,15 +7,15 @@ require_relative '../lib/quiq'
 require_relative '../testapp/config/environment.rb'
 require 'optparse'
 
-options = {}
+options = { number: 10_000, wait: 1 }
 OptionParser.new do |opts|
   opts.banner = 'Usage: quiqload [options]'
 
-  opts.on('-n', '--number [JOBS]', 'Number of jobs to enqueue') do |number|
+  opts.on('-n', '--number JOBS', Integer, 'Number of jobs to enqueue') do |number|
     options[:number] = number.to_i
   end
 
-  opts.on('-w', '--wait [DURATION]', 'Idle time within each job') do |wait|
+  opts.on('-w', '--wait DURATION', Integer, 'Idle time within each job (in seconds)') do |wait|
     options[:wait] = wait.to_i
   end
 
@@ -25,12 +25,8 @@ OptionParser.new do |opts|
   end
 end.parse!
 
-
-count = options[:number] ||= 10_000
-wait = options[:wait] ||= 1
-
-Quiq.logger.info("Enqueuing #{count} jobs")
-count.times { |i| TestJob.perform_later(i, wait) }
+Quiq.logger.info("Enqueuing #{options[:number]} jobs")
+options[:number].times { |i| TestJob.perform_later(i, options[:wait]) }
 
 Thread.new do
   while true
@@ -40,7 +36,7 @@ Thread.new do
     end.wait
 
     if queue_size == 0
-      Quiq.logger.info("Done processing #{count} jobs")
+      Quiq.logger.info("Done processing #{options[:number]} jobs")
       break
     end
 
