@@ -12,7 +12,7 @@ module Quiq
   DEFAULT_QUEUE_NAME = 'default'
 
   def configuration
-    @configuration ||= Config.instance
+    Config.instance
   end
 
   def configure
