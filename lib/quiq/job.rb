@@ -21,12 +21,12 @@ module Quiq
 
           # Then run the task
           klass.new.perform(*args)
-        rescue JSON::ParserError => exception
-          Quiq.logger.warn("Invalid format: #{exception.to_s}")
-          send_to_dlq(payload, exception)
-        rescue Exception => exception
-          Quiq.logger.debug("Sending message to DLQ: #{exception.to_s}")
-          send_to_dlq(payload, exception)
+        rescue JSON::ParserError => e
+          Quiq.logger.warn("Invalid format: #{e}")
+          send_to_dlq(@raw, e)
+        rescue StandardError => e
+          Quiq.logger.debug("Sending message to DLQ: #{e}")
+          send_to_dlq(payload, e)
         ensure
           # Remove the job from the processing list
           Queue.delete(@queue.processing, @raw)
@@ -37,7 +37,7 @@ module Quiq
     private
 
     def send_to_dlq(payload, exception)
-      if payload
+      if payload.is_a?(Hash)
         payload['error'] = exception.to_s
         payload['backtrace'] = exception.backtrace
         message = JSON.dump(payload)
