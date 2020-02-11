@@ -2,7 +2,7 @@ PATH
   remote: ..
   specs:
     quiq (0.1.0)
-      async-redis (~> 0.4.2)
+      async-redis (~> 0.4.3)
 
 GEM
   remote: https://rubygems.org/
@@ -77,11 +77,11 @@ GEM
       async (~> 1.14)
     async-pool (0.2.0)
       async (~> 1.8)
-    async-redis (0.4.2)
+    async-redis (0.4.3)
       async (~> 1.8)
       async-io (~> 1.10)
       async-pool (~> 0.2)
-      protocol-redis (~> 0.3.0)
+      protocol-redis (~> 0.4.0)
     bootsnap (1.4.5)
       msgpack (~> 1.0)
     builder (3.2.4)
@@ -121,7 +121,7 @@ GEM
     protocol-http2 (0.10.4)
       protocol-hpack (~> 1.4)
       protocol-http (~> 0.2)
-    protocol-redis (0.3.1)
+    protocol-redis (0.4.2)
     rack (2.1.1)
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
