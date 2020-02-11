@@ -84,7 +84,7 @@ end
 
 As it is using the [Async](https://github.com/socketry/async) gem, we can use the many features provided by this library.
 
-You can access the undlerlying `Async::Task` by using `Quiq.current_task`.
+You can access the underlying `Async::Task` by using `Quiq.current_task`.
 
 A very dumb example:
 
@@ -98,7 +98,7 @@ class TestJob < ApplicationJob
 end
 ```
 
-More interesting use case. If you combine `quiq` with the [async-http](https://github.com/socketry/async-http) gem, you'll be able to make asynchronous http calls:
+More interesting use case. If you combine `quiq` with the [async-http](https://github.com/socketry/async-http) gem, you'll be able to make asynchronous HTTP calls:
 
 ```ruby
 require 'uri'
