@@ -7,8 +7,11 @@ Gem::Specification.new do |spec|
   spec.version       = Quiq::VERSION
   spec.authors       = ['Salim Semaoune']
 
-  spec.summary       = 'amazing summary'
-  spec.description   = 'gorgeous description'
+  spec.summary       = 'Distributed task queue written in Ruby, backed by Redis and using an event loop.'
+  spec.description   = <<-EOS
+    Quiq is a distributed task queue backed by Redis to process jobs in background.
+    It relies on asynchronous IOs to process multiple jobs simultaneously. The event loop is provided by the Async library and many other gems of the Socketry family.
+  EOS
   spec.homepage      = 'https://github.com/sailor/quiq'
   spec.license       = 'MIT'
   spec.required_ruby_version = Gem::Requirement.new('>= 2.3.0')
