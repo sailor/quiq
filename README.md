@@ -80,6 +80,24 @@ module ActiveJob
 end
 ```
 
+## Jobs
+
+As it is using the [Async](https://github.com/socketry/async) gem, we can use the many features provided by this library.
+
+You can access the undlerlying `Async::Task` by using `Quiq.current_task`.
+
+A very dumb example:
+
+```ruby
+class TestJob < ApplicationJob
+  def perform(data, wait)
+    puts "[Worker ##{$$}] Receiving new job: #{data}"
+    Quiq.current_task.sleep wait
+    puts "[Worker ##{$$}] Time to wake up after #{wait} seconds"
+  end
+end
+```
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
