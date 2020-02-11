@@ -9,7 +9,7 @@ module ActiveJob
       end
 
       def enqueue_at(job, timestamp)
-        raise NotImplementedError, 'Support for scheduled jobs is coming soon.'
+        Quiq::Client.push(job, scheduled_at: timestamp)
       end
 
       class JobWrapper
