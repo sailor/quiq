@@ -91,9 +91,9 @@ A very dumb example:
 ```ruby
 class TestJob < ApplicationJob
   def perform(data, wait)
-    puts "[Worker ##{$$}] Receiving new job: #{data}"
-    Quiq.current_task.sleep wait
-    puts "[Worker ##{$$}] Time to wake up after #{wait} seconds"
+    puts "Receiving new job: #{data}"
+    Quiq.current_task.sleep wait # Non blocking call
+    puts "Time to wake up after #{wait} seconds"
   end
 end
 ```
