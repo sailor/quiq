@@ -1,8 +1,10 @@
 # Quiq
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/quiq`. To experiment with that code, run `bin/console` for an interactive prompt.
+Quiq is a distributed task queue backed by Redis to process jobs in background.
 
-TODO: Delete this and the text above, and describe your gem
+It relies on asynchronous IOs to process multiple jobs simultaneously. The event loop is provided by the [Async](https://github.com/socketry/async) library and many other gems of the [Socketry](https://github.com/socketry) family.
+
+It can be used without Rails, but will play nicely with [ActiveJob](https://guides.rubyonrails.org/active_job_basics.html) even though it's not supported officialy (more details [here](#activejob-support))
 
 ## Installation
 
@@ -47,6 +49,8 @@ Quiq.configure do |config|
   config.logger = Rails.logger
 end
 ```
+
+### ActiveJob support
 
 As there is no official support for Quiq in ActiveJob, you must monkey patch it to use it as you would do with any other background jobs system. You can find a complete example here: [testapp/config/initializers/quiq.rb](https://github.com/sailor/quiq/blob/master/testapp/config/initializers/quiq.rb)
 
