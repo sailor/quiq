@@ -84,7 +84,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 To benchmark the system you can use the `quiqload` binary. To launch it, execute:
 
-    $ time RUBYOPT="-W0" bin/quiqload -n 10_000 -w wait 1
+    $ time bin/quiqload -n 10_000 -w wait 1
 
 ```
 Usage: quiqload [options]
