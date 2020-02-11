@@ -4,7 +4,9 @@ Quiq is a distributed task queue backed by Redis to process jobs in background.
 
 It relies on asynchronous IOs to process multiple jobs simultaneously. The event loop is provided by the [Async](https://github.com/socketry/async) library and many other gems of the [Socketry](https://github.com/socketry) family.
 
-It can be used without Rails, but will play nicely with [ActiveJob](https://guides.rubyonrails.org/active_job_basics.html) even though it's not supported officialy (more details [here](#activejob-support))
+It can be used without Rails, but will play nicely with [ActiveJob](https://guides.rubyonrails.org/active_job_basics.html) even though it's not supported officialy (more details [here](#activejob-support)).
+
+The library is in a very early stage, it is **not suitable for production** yet.
 
 ## Installation
 
