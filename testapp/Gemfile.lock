@@ -66,6 +66,13 @@ GEM
       console (~> 1.0)
       nio4r (~> 2.3)
       timers (~> 4.1)
+    async-http (0.50.2)
+      async (~> 1.23)
+      async-io (~> 1.27.0)
+      async-pool (~> 0.2)
+      protocol-http (~> 0.13.0)
+      protocol-http1 (~> 0.10.0)
+      protocol-http2 (~> 0.10.0)
     async-io (1.27.3)
       async (~> 1.14)
     async-pool (0.2.0)
@@ -107,6 +114,13 @@ GEM
     nio4r (2.5.2)
     nokogiri (1.10.7)
       mini_portile2 (~> 2.4.0)
+    protocol-hpack (1.4.2)
+    protocol-http (0.13.1)
+    protocol-http1 (0.10.1)
+      protocol-http (~> 0.13)
+    protocol-http2 (0.10.4)
+      protocol-hpack (~> 1.4)
+      protocol-http (~> 0.2)
     protocol-redis (0.3.1)
     rack (2.1.1)
     rack-test (1.1.0)
@@ -163,6 +177,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  async-http
   bootsnap (>= 1.4.2)
   listen (>= 3.0.5, < 3.2)
   quiq!

@@ -98,6 +98,23 @@ class TestJob < ApplicationJob
 end
 ```
 
+More interesting use case. If you combine `quiq` with the [async-http](https://github.com/socketry/async-http) gem, you'll be able to make asynchronous http calls:
+
+```ruby
+require 'uri'
+require 'async/http/internet'
+
+class HttpJob < ApplicationJob
+  def perform(url)
+    uri = URI(url)
+
+    client = Async::HTTP::Internet.new
+    response = client.get(url)
+    Quiq.logger.info response.read
+  end
+end
+```
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
