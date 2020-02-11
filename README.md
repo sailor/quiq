@@ -35,7 +35,7 @@ Usage: quiq [options]
 
 This is how to use it with a Rails application using [ActiveJob](https://guides.rubyonrails.org/active_job_basics.html)
 
-    $ bundle exec quiq -p ./config/environment.rb
+    $ bundle exec quiq -p ./config/environment.rb -q critical,medium,low -l WARN
 
 ## Configuration
 
