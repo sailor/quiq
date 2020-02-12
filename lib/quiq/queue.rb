@@ -6,7 +6,7 @@ module Quiq
     PROCESSING_SUFFIX = 'processing'
     DEAD_LETTER_QUEUE = 'dead'
 
-    attr_reader :processing
+    attr_reader :name, :processing
 
     def initialize(name)
       @name = self.class.formatted_name(name)

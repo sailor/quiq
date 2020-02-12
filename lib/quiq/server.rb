@@ -18,6 +18,9 @@ module Quiq
       # Launch scheduler for jobs to be performed at certain time
       fork { Scheduler.start }
 
+      # Set the process name
+      Process.setproctitle("quiq master #{Quiq.configuration.path}")
+
       # TODO: handle graceful shutdowns
       Process.waitall
     end

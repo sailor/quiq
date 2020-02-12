@@ -5,6 +5,9 @@ require_relative 'scheduler_queue'
 module Quiq
   class Scheduler
     def self.start
+      # Set the process name
+      Process.setproctitle('quiq scheduler')
+
       Async do
         loop do
           serialized_job, scheduled_at = SchedulerQueue.pull

@@ -10,6 +10,9 @@ module Quiq
     end
 
     def start
+      # Set the process name
+      Process.setproctitle("quiq worker #{@queue.name}")
+
       # Reschedule jobs that get terminated before completion
       # Beware that the jobs must be idempotent!
       @queue.purge_processing!

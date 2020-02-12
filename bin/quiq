@@ -9,7 +9,7 @@ OptionParser.new do |opts|
   opts.banner = 'Usage: quiq [options]'
 
   opts.on('-p', '--path PATH', 'Location of the workers to load') do |path|
-    options[:path] = path
+    options[:path] = File.expand_path(path)
   end
 
   opts.on('-q', '--queues NAMES', Array,
