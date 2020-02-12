@@ -21,7 +21,7 @@ module Quiq
             SCHEDULER_KEY, 0, 0, with_scores: true
           )
 
-          enqueue(job) if job && scheduled_at.to_f < Time.now.to_f
+          enqueue(job) if job && scheduled_at.to_f <= Time.now.to_f
         end
       ensure
         Quiq.redis.close
