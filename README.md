@@ -120,7 +120,7 @@ end
 Since Quiq supports ActiveJob interface you can use the same approach to schedule jobs for the future.
 
 ```ruby
-TestJob.set(wait_until: Time.now + 5.minutes).perform_later(1, 2)
+TestJob.set(wait: 5.seconds).perform_later(1, 2)
 ```
 
 ## Development
