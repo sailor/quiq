@@ -115,6 +115,14 @@ class HttpJob < ApplicationJob
 end
 ```
 
+### Scheduled jobs
+
+Since Quiq supports ActiveJob interface you can use the same approach to schedule jobs for the future.
+
+```ruby
+TestJob.set(wait_until: Time.now + 5.minutes).perform_later(1, 2)
+```
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
@@ -139,7 +147,7 @@ Usage: quiqload [options]
 - [ ] Graceful shutdown
 - [x] Customizable logger
 - [x] Dead-letter queue
-- [ ] Scheduler
+- [x] Scheduler
 - [ ] Specs
 - [ ] Retry system
 - [ ] Batches support
