@@ -24,13 +24,7 @@ module Quiq
       end
 
       # TODO: Implement fine-grained locking
-      pushed = Queue.push(job['queue_name'], serialized_job)
-
-      if pushed <= 0
-        Quiq.logger.error("Could not push to the queue: #{job['queue_name']}")
-        return false
-      end
-
+      Queue.push(job['queue_name'], serialized_job)
       delete(serialized_job)
     end
 

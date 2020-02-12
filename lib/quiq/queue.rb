@@ -14,7 +14,11 @@ module Quiq
     end
 
     def push(job)
-      Quiq.redis.lpush(@name, job)
+      pushed = Quiq.redis.lpush(@name, job)
+      return unless pushed <= 0
+
+      Quiq.logger.error("Could not push to the queue: #{@name}")
+      false
     end
 
     def pop
