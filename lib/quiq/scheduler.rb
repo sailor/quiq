@@ -43,9 +43,10 @@ module Quiq
         Queue.send_to_dlq(job)
       end
 
-      # TODO: wrap those 2 calls in a transaction
-      Queue.push(payload['queue_name'], job)
-      Quiq.redis.zrem(SCHEDULER_KEY, job)
+      Quiq.redis.transaction do |multi|
+        multi.lpush(Queue.formatted_name(payload['queue_name']), job)
+        multi.zrem(SCHEDULER_KEY, job)
+      end
     end
   end
 end
