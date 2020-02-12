@@ -10,6 +10,7 @@ module Quiq
 
       Async do
         loop do
+          sleep 0.2
           serialized_job, scheduled_at = SchedulerQueue.pull
 
           if serialized_job && time_to_process?(scheduled_at)
