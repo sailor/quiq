@@ -3,7 +3,7 @@
 # Scheduler queue is used to process jobs scheduled for the future.
 module Quiq
   class SchedulerQueue
-    NAME = 'scheduler_queue'.freeze
+    NAME = 'scheduler_queue'
 
     def self.push(serialized_job, scheduled_at)
       Quiq.redis.zadd(NAME, scheduled_at, serialized_job)
@@ -22,7 +22,7 @@ module Quiq
       pushed = Quiq.redis.lpush("queue:#{job['queue_name']}", serialized_job)
 
       if pushed <= 0
-        Quiq.logger.error("Could not lpush to the queue:#{job['queue_name']}")
+        Quiq.logger.error("Could not push to the queue: #{job['queue_name']}")
         return false
       end
 
