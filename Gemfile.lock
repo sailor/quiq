@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    quiq (0.1.0)
+    quiq (0.2.0)
       async-redis (~> 0.4.3)
 
 GEM
