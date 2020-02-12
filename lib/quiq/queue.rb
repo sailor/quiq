@@ -36,6 +36,11 @@ module Quiq
       end.wait
     end
 
+    def self.push(queue, job)
+      @queue = self.new(queue)
+      @queue.push(job)
+    end
+
     def self.delete(queue, job)
       Quiq.redis.lrem(queue, 0, job)
     end
