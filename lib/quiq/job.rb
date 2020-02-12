@@ -17,10 +17,9 @@ module Quiq
 
           # Then load the definition of the job + its arguments
           klass = Object.const_get(payload['job_class'])
-          args = payload['arguments']
 
           # Then run the task
-          klass.new.perform(*args)
+          klass.deserialize(payload).perform_now
         rescue JSON::ParserError => e
           Quiq.logger.warn("Invalid format: #{e}")
           send_to_dlq(@raw, e)
