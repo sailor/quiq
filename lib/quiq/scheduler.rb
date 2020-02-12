@@ -1,30 +1,30 @@
 # frozen_string_literal: true
 
+require 'singleton'
 require_relative 'scheduler_queue'
 
 module Quiq
   class Scheduler
-    def self.start
+    include Singleton
+
+    def start
       # Set the process name
       Process.setproctitle('quiq scheduler')
 
       Async do
         loop do
-          sleep 0.2
           serialized_job, scheduled_at = SchedulerQueue.pull
+          next unless serialized_job && time_to_process?(scheduled_at)
 
-          if serialized_job && time_to_process?(scheduled_at)
-            moved = SchedulerQueue.move_to_original_queue(serialized_job)
-
-            next unless moved
-          end
+          SchedulerQueue.move_to_original_queue(serialized_job)
+          sleep 0.2
         end
       ensure
         Quiq.redis.close
       end
     end
 
-    def self.time_to_process?(scheduled_at)
+    def time_to_process?(scheduled_at)
       scheduled_at.to_f < Time.now.to_f
     end
   end

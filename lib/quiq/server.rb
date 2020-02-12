@@ -16,7 +16,7 @@ module Quiq
       end
 
       # Launch scheduler for jobs to be performed at certain time
-      fork { Scheduler.start }
+      fork { Scheduler.instance.start }
 
       # Set the process name
       Process.setproctitle("quiq master #{Quiq.configuration.path}")
