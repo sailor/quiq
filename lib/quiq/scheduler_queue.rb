@@ -11,6 +11,7 @@ module Quiq
 
     # Reads the job with the nearest timestamp
     def self.pull
+      # TODO: use ZRANGEBYSCORE instead
       Quiq.redis.zrange(NAME, 0, 0, with_scores: true)
     end
 
