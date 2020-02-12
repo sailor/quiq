@@ -6,12 +6,12 @@ require 'uri'
 module Quiq
   class Client
     def push(job, scheduled_at)
-      serialized = JSON.dump(job.serialize)
+      serialized_job = JSON.dump(job.serialize)
 
       if scheduled_at
-        Async { SchedulerQueue.push(serialized, scheduled_at) }
+        Async { SchedulerQueue.push(serialized_job, scheduled_at) }
       else
-        Async { Queue.push(job.queue_name, serialized) }
+        Async { Queue.push(job.queue_name, serialized_job) }
       end
     end
 
