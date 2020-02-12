@@ -26,10 +26,6 @@ module Quiq
 
       # TODO: Implement fine-grained locking
       Queue.push(job['queue_name'], serialized_job)
-      delete(serialized_job)
-    end
-
-    def self.delete(serialized_job)
       Quiq.redis.zrem(NAME, serialized_job)
     end
   end
