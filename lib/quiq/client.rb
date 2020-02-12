@@ -9,7 +9,7 @@ module Quiq
       serialized_job = JSON.dump(job.serialize)
 
       if scheduled_at
-        Async { SchedulerQueue.push(serialized_job, scheduled_at) }
+        Async { Scheduler.enqueue_at(serialized_job, scheduled_at) }
       else
         Async { Queue.push(job.queue_name, serialized_job) }
       end
