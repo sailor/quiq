@@ -24,7 +24,7 @@ module Quiq
         Queue.send_to_dlq(serialized_job)
       end
 
-      # TODO: Implement fine-grained locking
+      # TODO: wrap those 2 calls in a transaction
       Queue.push(job['queue_name'], serialized_job)
       Quiq.redis.zrem(NAME, serialized_job)
     end
