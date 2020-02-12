@@ -16,7 +16,12 @@ module Quiq
 
     # Push the job in its queue and remove from scheduler_queue
     def self.move_to_original_queue(serialized_job)
-      job = JSON.parse(serialized_job)
+      begin
+        job = JSON.parse(serialized_job)
+      rescue JSON::ParserError => e
+        Quiq.logger.warn("Invalid format: #{e}")
+        Queue.send_to_dlq(serialized_job)
+      end
 
       # TODO: Implement fine-grained locking
       pushed = Queue.push(job['queue_name'], serialized_job)
