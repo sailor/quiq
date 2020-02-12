@@ -41,7 +41,7 @@ module Quiq
     end
 
     def self.push(queue, job)
-      @queue = self.new(queue)
+      @queue = new(queue)
       @queue.push(job)
     end
 
