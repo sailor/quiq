@@ -14,7 +14,7 @@ module Quiq
 
       Async do
         loop do
-          sleep 0.2
+          sleep 0.1
 
           # TODO: use ZRANGEBYSCORE instead to batch enqueuing
           job, scheduled_at = Quiq.redis.zrange(
