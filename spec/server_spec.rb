@@ -1,5 +1,5 @@
 RSpec.describe Quiq::Server do
-  let(:options) { { path: Dir.pwd, queues: %w[default], log_level: Logger::DEBUG } }
+  let(:options) { { path: '/tmp', queues: %w[default], log_level: Logger::DEBUG } }
 
   describe '#run!' do
     after { Quiq.boot(options) }
@@ -11,6 +11,7 @@ RSpec.describe Quiq::Server do
 
       it 'spawns 1 worker + 1 scheduler' do
         expect(described_class.instance).to receive(:fork).twice
+        expect(Process).to receive(:setproctitle).once.with('quiq master /tmp')
       end
     end
 
