@@ -153,6 +153,7 @@ Usage: quiqload [options]
 - [ ] Batches support
 - [x] Load testing script
 - [ ] Admin user interface
+- [ ] Rate limiting capabilities
 
 ## Contributing
 
