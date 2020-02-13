@@ -149,7 +149,7 @@ Usage: quiqload [options]
 - [x] Dead-letter queue
 - [x] Scheduler
 - [ ] Specs
-- [ ] Retry system
+- [x] Retry system
 - [ ] Batches support
 - [x] Load testing script
 - [ ] Admin user interface
