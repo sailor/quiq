@@ -1,3 +1,10 @@
+GIT
+  remote: https://github.com/dmitrychopey/protocol-redis
+  revision: c9b35f40948d5d06da0b7c08e78c2cc6b4f3300d
+  branch: add-zrangebyscore
+  specs:
+    protocol-redis (0.4.2)
+
 PATH
   remote: ..
   specs:
@@ -121,7 +128,6 @@ GEM
     protocol-http2 (0.10.4)
       protocol-hpack (~> 1.4)
       protocol-http (~> 0.2)
-    protocol-redis (0.4.2)
     rack (2.1.1)
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
@@ -180,6 +186,7 @@ DEPENDENCIES
   async-http
   bootsnap (>= 1.4.2)
   listen (>= 3.0.5, < 3.2)
+  protocol-redis!
   quiq!
   rails (~> 6.0.2, >= 6.0.2.1)
 
