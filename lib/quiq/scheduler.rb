@@ -36,20 +36,17 @@ module Quiq
 
     # Push the job in its queue and remove from scheduler_queue
     def enqueue(job)
-      Async do
-        begin
-          payload = JSON.parse(job)
-        rescue JSON::ParserError => e
-          Quiq.logger.warn("Invalid format: #{e}")
-          Queue.send_to_dlq(job)
-        end
+      begin
+        payload = JSON.parse(job)
+      rescue JSON::ParserError => e
+        Quiq.logger.warn("Invalid format: #{e}")
+        Queue.send_to_dlq(job)
+      end
 
-        puts "job payload: #{payload}"
-        Quiq.redis.transaction do |multi|
-          multi.lpush(Queue.formatted_name(payload['queue_name']), job)
-          multi.zrem(SCHEDULER_KEY, job)
-        end
-      end.wait
+      Quiq.redis.transaction do |multi|
+        multi.lpush(Queue.formatted_name(payload['queue_name']), job)
+        multi.zrem(SCHEDULER_KEY, job)
+      end
     end
   end
 end
