@@ -1,15 +1,8 @@
-GIT
-  remote: https://github.com/dmitrychopey/protocol-redis
-  revision: c9b35f40948d5d06da0b7c08e78c2cc6b4f3300d
-  branch: add-zrangebyscore
-  specs:
-    protocol-redis (0.4.2)
-
 PATH
   remote: ..
   specs:
     quiq (0.2.0)
-      async-redis (~> 0.4.3)
+      async-redis (~> 0.5)
 
 GEM
   remote: https://rubygems.org/
@@ -84,11 +77,11 @@ GEM
       async (~> 1.14)
     async-pool (0.2.0)
       async (~> 1.8)
-    async-redis (0.4.3)
+    async-redis (0.5.0)
       async (~> 1.8)
       async-io (~> 1.10)
       async-pool (~> 0.2)
-      protocol-redis (~> 0.4.0)
+      protocol-redis (~> 0.5.0)
     bootsnap (1.4.5)
       msgpack (~> 1.0)
     builder (3.2.4)
@@ -128,6 +121,7 @@ GEM
     protocol-http2 (0.10.4)
       protocol-hpack (~> 1.4)
       protocol-http (~> 0.2)
+    protocol-redis (0.5.0)
     rack (2.1.1)
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
@@ -186,7 +180,6 @@ DEPENDENCIES
   async-http
   bootsnap (>= 1.4.2)
   listen (>= 3.0.5, < 3.2)
-  protocol-redis!
   quiq!
   rails (~> 6.0.2, >= 6.0.2.1)
 
