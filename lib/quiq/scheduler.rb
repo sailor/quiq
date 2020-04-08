@@ -7,6 +7,7 @@ module Quiq
     include Singleton
 
     SCHEDULER_KEY = 'quiq:schedule'
+    BATCH_SIZE = 10
 
     def start
       # Set the process name
@@ -16,12 +17,13 @@ module Quiq
         loop do
           sleep 0.1
 
-          # TODO: use ZRANGEBYSCORE instead to batch enqueuing
-          job, scheduled_at = Quiq.redis.zrange(
-            SCHEDULER_KEY, 0, 0, with_scores: true
+          jobs = Quiq.redis.zrangebyscore(
+            SCHEDULER_KEY, 0, Time.now.to_f, limit: [0, BATCH_SIZE]
           )
 
-          enqueue(job) if job && scheduled_at.to_f <= Time.now.to_f
+          next if jobs.empty?
+
+          jobs.each { |j| enqueue(j) }
         end
       ensure
         Quiq.redis.close
