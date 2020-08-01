@@ -15,12 +15,12 @@ module Quiq
           # First parse the raw message from redis
           payload = JSON.parse(@raw)
 
-          # Then load the definition of the job + its arguments
+          # Then load the definition of the job + deserialize it to a job object
           klass = Object.const_get(payload['job_class'])
-          args = payload['arguments']
+          job = klass.deserialize(payload)
 
           # Then run the task
-          klass.new.perform(*args)
+          job.perform_now
         rescue JSON::ParserError => e
           Quiq.logger.warn("Invalid format: #{e}")
           send_to_dlq(@raw, e)
